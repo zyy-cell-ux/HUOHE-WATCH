@@ -1,0 +1,40 @@
+// 将文本修改为UTF-8.使keil中同为此版本
+// 添加RTC.添加menu,为修改主菜单界面的文件夹
+// 字模库缺少OLED_12X24的字体,取模软件进行重新取模操作
+
+
+// //添加OLED_12X24支持的具体修改步骤:
+// 补充OLED_12X24支持的具体修改步骤:
+// 1.在Hardware/OLED.h中增加字号宏
+// 在现有#define OLED_8X16 8和#define OLED_6X8 6旁边增加:
+// #define OLED_12X24 12
+
+// 2.在Hardware/OLED_Data.h中增加12x24字库声明
+// 在ASCII字模声明区增加:
+// extern const uint8_t OLED_F12x24[][36];
+// 说明:12x24每个字符字节数为12*24/8=36字节。
+
+// 3.在Hardware/OLED_Data.c中增加12x24字模数组定义
+// 放在ASCII区域(F8x16、F6x8附近),建议命名:
+// const uint8_t OLED_F12x24[][36] = {
+// ...95个可见ASCII字符的数据...
+// };
+// ASCII顺序必须与现有字库一致:从空格(0x20)到波浪线(0x7E)。
+// 原因:显示时使用的索引为Char-' '(见OLED.c中OLED_ShowChar实现)。
+
+// 4.在Hardware/OLED.c的OLED_ShowChar中增加12x24分支
+// 在现有8x16/6x8分支后增加:
+// else if (FontSize == OLED_12X24)
+// {
+// 	OLED_ShowImage(X, Y, 12, 24, OLED_F12x24[Char - ' ']);
+// }
+
+// 5.可选但建议:在Hardware/OLED.c的OLED_ShowString中给中文+12x24做兜底
+// 当前多字节字符分支只处理了8x16和6x8。
+// 若后续字符串里出现中文且FontSize=12,建议回退显示'?'并推进XOffset,避免字符重叠。
+
+// //后续添加中文字符
+
+// 刷新时间显示界面
+
+// 按键控制光标移动代码
