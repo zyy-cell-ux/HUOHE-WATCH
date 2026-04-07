@@ -1,0 +1,39 @@
+menu.c
+void Show_SettingPage_UI(void)
+
+int setflag=1;
+int SettingPage(void){
+	// --- 设备控制区 ---
+	KeyNum=Key_GetNum();
+	// --- 业务逻辑区 (由确认键触发) ---
+setflag_temp=setflag;//最终条件判断
+	// --- UI显示区 (仅在状态改变时刷新) ---
+	switch(setflag)//UI显示区
+
+SetTime.c
+void Show_SetTime_FirstUI(void)
+
+void Show_SetTime_SecondUI(void)
+
+void Change_RTC_Time(uint8_t i,uint8_t flag)//flag=1:加1，flag=0:减1
+
+
+extern uint8_t KeyNum;
+int SetYear(void){
+		KeyNum=Key_GetNum();,执行void Change_RTC_Time(uint8_t i,uint8_t flag)//flag=1:加1，flag=0:减1
+		Show_SetTime_FirstUI();
+		OLED_ReverseArea(24,16,32,16);
+		OLED_Update();反转操作
+
+直到int SetSec(void)都是相同操作
+
+
+int set_time_flag=1;
+int SetTime(void){
+
+		KeyNum=Key_GetNum();
+		uint8_t set_time_flag_temp=0;
+
+			set_time_flag_temp=set_time_flag;
+
+调用函数以上的setyear…
